@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -33,20 +34,16 @@ class Article
      */
     private $authorSiteUrl;
 
+    public function __construct() {
+        $this->tags = new ArrayCollection();
+    }
+
     /**
      * @return mixed
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -60,7 +57,7 @@ class Article
     /**
      * @param mixed $title
      */
-    public function setTitle($title): void
+    public function setTitle($title)
     {
         $this->title = $title;
     }
@@ -76,7 +73,7 @@ class Article
     /**
      * @param mixed $authorFio
      */
-    public function setAuthorFio($authorFio): void
+    public function setAuthorFio($authorFio)
     {
         $this->authorFio = $authorFio;
     }
@@ -92,7 +89,7 @@ class Article
     /**
      * @param mixed $authorSiteUrl
      */
-    public function setAuthorSiteUrl($authorSiteUrl): void
+    public function setAuthorSiteUrl($authorSiteUrl)
     {
         $this->authorSiteUrl = $authorSiteUrl;
     }
@@ -176,6 +173,4 @@ class Article
     {
         $this->slug = $slug;
     }
-    
-    
 }

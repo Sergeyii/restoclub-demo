@@ -34,4 +34,24 @@ class ArticleController extends Controller
             'article' => $this->repository->findOneBy(['slug' => $slug]),
         ]);
     }
+
+    /**
+     * @Route("/article/tags/{tag}", name="articles_by_tag")
+     */
+    public function showByTag($tag)
+    {
+        return $this->render('article/show_by_tag.html.twig', [
+            'articles' => [],//TODO::
+        ]);
+    }
+
+    /**
+     * @Route("/article/authors/{author}", name="articles_by_author")
+     */
+    public function showByAuthor($author)
+    {
+        return $this->render('article/show_by_author.html.twig', [
+            'articles' => [],//TODO::
+        ]);
+    }
 }
