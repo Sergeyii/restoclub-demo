@@ -9,6 +9,8 @@ class Version20180429124010 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
         $this->addSql('CREATE TABLE `article` (
 			  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			  `title` varchar(255) NOT NULL,
@@ -28,6 +30,8 @@ class Version20180429124010 extends AbstractMigration
 
     public function down(Schema $schema)
     {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
         $this->addSql('DROP TABLE `article`');
     }
 }

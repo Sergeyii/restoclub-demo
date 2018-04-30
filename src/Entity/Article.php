@@ -14,42 +14,168 @@ class Article
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    public $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    public $title;
+    private $title;
     /**
      * @ORM\Column(type="string")
      */
-    public $slug;
+    private $slug;
     /**
      * @ORM\Column(type="string")
      */
-    public $authorFio;
+    private $authorFio;
     /**
      * @ORM\Column(type="string")
      */
-    public $authorSiteUrl;
+    private $authorSiteUrl;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorFio()
+    {
+        return $this->authorFio;
+    }
+
+    /**
+     * @param mixed $authorFio
+     */
+    public function setAuthorFio($authorFio): void
+    {
+        $this->authorFio = $authorFio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorSiteUrl()
+    {
+        return $this->authorSiteUrl;
+    }
+
+    /**
+     * @param mixed $authorSiteUrl
+     */
+    public function setAuthorSiteUrl($authorSiteUrl): void
+    {
+        $this->authorSiteUrl = $authorSiteUrl;
+    }
     /**
      * @ORM\Column(type="integer")
      */
-    public $type;
+    private $type;
     /**
      * @ORM\Column(type="text")
      */
-    public $description;
+    private $description;
     /**
      * @ORM\Column(type="datetime")
      */
-    public $createdAt;
+    private $createdAt;
     /**
      * @ORM\Column(type="datetime")
      */
-    public $updatedAt;
+    private $updatedAt;
     /**
      * @ORM\Column(type="datetime")
      */
-    public $publicatedAt;
+    private $publicatedAt;
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->publicatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function getPublicatedAt()
+    {
+        return $this->publicatedAt;
+    }
+
+    public function setPublicatedAt($publicatedAt)
+    {
+        $this->publicatedAt = $publicatedAt;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+    
+    
 }
