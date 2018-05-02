@@ -1,4 +1,24 @@
 easy_admin:
     entities:
-         - App\Entity\Article
-         - App\Entity\Tag
+        Article:
+            class: App\Entity\Article
+            controller: App\Controller\Admin\ArticleController
+#            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+#                fields:
+#                    - { property: 'title', type: 'text', label: 'Название', type_options: { required: true } }
+#                    - { property: 'slug', type: 'text', label: 'Slug', type_options: { required: true } }
+#                    - { property: 'type', type: 'choice', label: 'Тип',
+#                        choices: {
+#                          'Первая' : 'ПерваяПерваяПерваяПервая',
+#                          'Нулевая' : 'НулеваяНулеваяНулеваяНулевая'
+#                        },
+#                        type_options: { required: true }
+#                      }
+#                    - { property: 'tags', type: 'checkbox', label: 'Теги' }
+#                    - { property: 'publicatedAt', type: 'datetime', label: 'Дата публикации' }
+#                    - { property: 'description', type: 'textarea', label: 'Описание', type_options: { required: false } }
+        Tag:
+            class: App\Entity\Tag
+            #form:
+                #fields:
+                    #- { property: 'description', type: 'text', label: 'Описание', type_options: { required: false } }

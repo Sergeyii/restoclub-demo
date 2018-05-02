@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -10,6 +11,9 @@ use \Doctrine\Common\Collections\ArrayCollection;
  */
 class Article
 {
+    const CHOISE_TYPE_TYPICAL = 0;
+    const CHOISE_TYPE_AUTHOR = 1;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,22 +25,60 @@ class Article
      * @ORM\Column(type="string")
      */
     private $title;
+
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $authorFio;
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $authorSiteUrl;
 
+    private $authorInfo;
+
+    private $tags;
+
+    /*
     public function __construct() {
         $this->tags = new ArrayCollection();
+    }*/
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", name="publicated_at")
+     */
+    private $publicatedAt;
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags): void
+    {
+        $this->tags = $tags;
+    }
+
 
     /**
      * @return mixed
@@ -93,26 +135,6 @@ class Article
     {
         $this->authorSiteUrl = $authorSiteUrl;
     }
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $type;
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $publicatedAt;
 
     public function getType()
     {
@@ -139,17 +161,17 @@ class Article
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(?\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
     public function getUpdatedAt()
     {
-        return $this->publicatedAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(?\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
@@ -159,7 +181,7 @@ class Article
         return $this->publicatedAt;
     }
 
-    public function setPublicatedAt($publicatedAt)
+    public function setPublicatedAt(?\DateTime $publicatedAt)
     {
         $this->publicatedAt = $publicatedAt;
     }

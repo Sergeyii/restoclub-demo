@@ -1,0 +1,58 @@
+{#{% form_theme form '@EasyAdmin/default/new.html.twig' %}#}
+{#{% form_theme form 'admin/article/slug.html.twig' %}#}
+{#{% block entity_form %}#}
+    {#{{ form(form) }}#}
+
+    {#{{ block('base_text_widget') }}#}
+{#{% endblock entity_form %}#}
+
+{#-----------------------------#}
+
+{#{% extends '@EasyAdmin/default/new.html.twig' %}#}
+{#{% use 'admin/article/slug.html.twig' with text_widget as base_text_widget %}#}
+
+{#{% block _article_slug_widget %}#}
+    {#<div class="text_widget">#}
+        {#{{ block('form_widget_simple') }}#}
+    {#</div>#}
+{#{% endblock %}#}
+
+{#-----------------------------#}
+
+{#{% extends '@EasyAdmin/default/new.html.twig' %}#}
+
+
+{#{% block main %}#}
+    {#{% block entity_form %}#}
+        {#{{ form(form) }}#}
+
+        {#asdfsdafdsaf#}
+    {#{% endblock entity_form %}#}
+{#{% endblock %}#}
+{#-----------------------------#}
+
+
+
+
+{% extends '@EasyAdmin/default/new.html.twig' %}
+
+{% block main %}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}&nbsp;
+        {#{{ form_row(form.slug) }}#}
+        {{ form_row(form.type) }}&nbsp;
+        {{ form_row(form.description) }}&nbsp;
+        {{ form_row(form.publicatedAt) }}&nbsp;
+        {#{{ form_row(form.tags) }}#}
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save" aria-hidden="true"></i> {{ 'Сохранить'|trans }}
+        </button>
+    {{ form_end(form) }}
+{% endblock %}
+
+
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
+    {#<script src="{{ asset('build/js/admin.js') }}"></script>#}
+{#{% endblock %}#}
