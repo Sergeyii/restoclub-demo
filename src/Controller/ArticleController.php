@@ -36,22 +36,22 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/article/tags/{tag}", name="articles_by_tag")
+     * @Route("/article/tags/{slug}", name="articles_by_tag")
      */
-    public function showByTag($tag)
+    public function showByTag($slug)
     {
-        return $this->render('article/show_by_tag.html.twig', [
-            'articles' => [],//TODO::
+        return $this->render('article/index.html.twig', [
+            'articles' => $this->repository->findByTagSlug($slug),
         ]);
     }
 
     /**
-     * @Route("/article/authors/{author}", name="articles_by_author")
+     * @Route("/article/authors/{id}", name="articles_by_author")
      */
-    public function showByAuthor($author)
+    public function showByAuthor($id)
     {
-        return $this->render('article/show_by_author.html.twig', [
-            'articles' => [],//TODO::
+        return $this->render('article/index.html.twig', [
+            'articles' => $this->repository->findByAuthorSlug($id),
         ]);
     }
 }

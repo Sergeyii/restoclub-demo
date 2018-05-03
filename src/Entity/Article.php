@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use \Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -31,15 +31,22 @@ class Article
      */
     private $slug;
 
-    private $authorInfo;
-
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\JoinTable(name="article_tag_assigments",
+     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"title": "ASC"})
+     * @Assert\Count(max="3", maxMessage="Макс. количество тегов не должно быть > 3")
+     */
     private $tags;
 
-    /*
-    public function __construct() {
-        $this->tags = new ArrayCollection();
-    }*/
-
+    /**
+     * One Customer has One Cart.
+     * @ORM\OneToOne(targetEntity="ArticleAuthor", mappedBy="article",cascade={"persist"})
+     */
+    private $author;
 
     /**
      * @ORM\Column(type="integer")
@@ -50,11 +57,11 @@ class Article
      */
     private $description;
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="created_at")
      */
     private $createdAt;
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="updated_at")
      */
     private $updatedAt;
 
@@ -63,77 +70,55 @@ class Article
      */
     private $publicatedAt;
 
-    /**
-     * @return mixed
-     */
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
+    /*public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(ArticleAuthor $author)
+    {
+        $this->author = $author;
+        $author->setArticle($this);
+        return $this;
+    }*/
+
+    public function addTag(?Tag ...$tags): void
+    {
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
+    }
+
+    public function removeTag(Tag $tag): void
+    {
+        $this->tags->removeElement($tag);
+    }
+
     public function getTags()
     {
         return $this->tags;
     }
 
-    /**
-     * @param mixed $tags
-     */
-    public function setTags($tags): void
-    {
-        $this->tags = $tags;
-    }
-
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
     public function getTitle()
     {
         return $this->title;
     }
 
-    /**
-     * @param mixed $title
-     */
     public function setTitle($title)
     {
         $this->title = $title;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthorFio()
-    {
-        return $this->authorFio;
-    }
-
-    /**
-     * @param mixed $authorFio
-     */
-    public function setAuthorFio($authorFio)
-    {
-        $this->authorFio = $authorFio;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthorSiteUrl()
-    {
-        return $this->authorSiteUrl;
-    }
-
-    /**
-     * @param mixed $authorSiteUrl
-     */
-    public function setAuthorSiteUrl($authorSiteUrl)
-    {
-        $this->authorSiteUrl = $authorSiteUrl;
     }
 
     public function getType()
@@ -191,8 +176,18 @@ class Article
         return $this->slug;
     }
 
-    public function setSlug($slug)
+    public function setSlug($slug): void
     {
         $this->slug = $slug;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function setAuthor($author): void
+    {
+        $this->author = $author;
     }
 }

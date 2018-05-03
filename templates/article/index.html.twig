@@ -19,9 +19,7 @@
             <div class="article-row">
                 <h4><a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.title }}</a></h4>
                 <div>{{ article.description }}</div><br/>
-                <div>
-                    <span class="articles-tags">Теги</span>: TODO::
-                </div>
+                {{ include('article/articles_tags.html.twig') }}
             </div>
         {% endfor %}
     </div>

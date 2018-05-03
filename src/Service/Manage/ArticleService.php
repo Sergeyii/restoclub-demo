@@ -3,6 +3,7 @@
 namespace App\Service\Manage;
 
 use App\Entity\Article;
+use App\Entity\ArticleAuthor;
 use App\Utils\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -19,6 +20,13 @@ class ArticleService
     {
         $article->setSlug(Slugger::slugify($article->getTitle()));
 
+        //--
+//        $author = $article->getAuthor();
+//        $article->setAuthor($author);
+////        $author->setArticle($article);
+//        $this->em->persist($author);
+        //--
+
         $now = new \DateTime();
         $article->setCreatedAt($now);
         $article->setUpdatedAt($now);
@@ -30,6 +38,13 @@ class ArticleService
     public function edit(Article $article)
     {
         $article->setSlug(Slugger::slugify($article->getTitle()));
+
+        //--
+        $author = $article->getAuthor();
+        $author->setArticle($article);
+        $this->em->persist($author);
+        $article->setAuthor($author);
+        //--
 
         $now = new \DateTime();
         $article->setUpdatedAt($now);

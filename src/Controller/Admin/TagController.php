@@ -2,18 +2,18 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Article;
-use App\Form\Admin\ArticleType;
-use App\Repository\ArticleRepository;
-use App\Service\Manage\ArticleService;
+use App\Entity\Tag;
+use App\Form\Admin\TagType;
+use App\Repository\TagRepository;
+use App\Service\Manage\TagService;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 
-class ArticleController extends BaseAdminController
+class TagController extends BaseAdminController
 {
     private $service;
     private $repository;
 
-    public function __construct(ArticleService $service, ArticleRepository $repository)
+    public function __construct(TagService $service, TagRepository $repository)
     {
         $this->service = $service;
         $this->repository = $repository;
@@ -21,22 +21,23 @@ class ArticleController extends BaseAdminController
 
     public function newAction()
     {
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
+        $model = new Tag();
+        $form = $this->createForm(TagType::class, $model);
         $form->handleRequest($this->request);
 
         if( $form->isSubmitted() && $form->isValid() ){
             try{
-                $this->service->add($article);
+                $this->service->add($model);
                 $this->addFlash('success', 'Модель создана!');
-                return $this->redirectToRoute('admin');
+//                return $this->redirectToRoute('admin');
+                return $this->redirectToRoute('admin', ['entity' => 'Tag']);
             }catch(\DomainException $e){
                 $this->addFlash('error', $e->getMessage());
             }
         }
 
-        return $this->render('admin/article/new.html.twig', array(
-            'article' => $article,
+        return $this->render('admin/tag/new.html.twig', array(
+            'model' => $model,
             'form' => $form->createView(),
         ));
     }
@@ -44,27 +45,27 @@ class ArticleController extends BaseAdminController
     public function editAction()
     {
         $entityId = $this->request->query->get('id');
-        $article = $this->repository->find($entityId);
+        $model = $this->repository->find($entityId);
 
-        if( !$article ){
+        if( !$model ){
             throw $this->createNotFoundException('Entity not found.');
         }
 
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createForm(TagType::class, $model);
         $form->handleRequest($this->request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try{
-                $this->service->edit($article);
+                $this->service->edit($model);
                 $this->addFlash('success', 'Модель обновлена!');
-                return $this->redirectToRoute('admin', ['entity' => 'Article', 'action' => 'edit', 'id' => $article->getId()]);
+                return $this->redirectToRoute('admin', ['entity' => 'Tag', 'action' => 'edit', 'id' => $model->getId()]);
             }catch(\DomainException $e){
                 $this->addFlash('error', $e->getMessage());
             }
         }
 
-        return $this->render('admin/article/new.html.twig', array(
-            'article' => $article,
+        return $this->render('admin/tag/new.html.twig', array(
+            'model' => $model,
             'form' => $form->createView(),
         ));
     }

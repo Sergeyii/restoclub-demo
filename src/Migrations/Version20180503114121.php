@@ -5,33 +5,28 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class Version20180429124010 extends AbstractMigration
+class Version20180503114121 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
+        // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE `article` (
+        $this->addSql('CREATE TABLE `article_author` (
 			  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			  `title` varchar(255) NOT NULL,
-			  `slug` varchar(255) NOT NULL,
-			  `author_fio` varchar(255) NOT NULL,
-			  `author_site_url` varchar(255) NOT NULL,
-			  `type` TINYINT(1) NOT NULL,
-			  `description` TEXT DEFAULT "",
-			  `created_at` datetime NOT NULL,
-			  `updated_at` datetime NOT NULL,
-			  `publicated_at` datetime NOT NULL
+			  `article_id` INT(11) NOT NULL,
+			  `site_url` varchar(255) DEFAULT "",
+			  `fio` varchar(255) DEFAULT ""
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;');
 
-        $this->addSql('ALTER TABLE `article` ADD INDEX `idx-article-slug` (`slug`)');
-
+        $this->addSql('ALTER TABLE `article_author` ADD CONSTRAINT `fk-article_author-article_id` FOREIGN KEY (article_id) REFERENCES article(id) ON DELETE CASCADE');
     }
 
     public function down(Schema $schema)
     {
+        // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE `article`');
+        $this->addSql('DROP TABLE `article_author`');
     }
 }

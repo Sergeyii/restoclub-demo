@@ -1,0 +1,10 @@
+{% if not article.tags.empty %}
+    <span class="articles-tags">Теги</span><br>
+    <p class="post-tags">
+        {% for tag in article.tags %}
+            <span class="label label-default">
+                <i class="fa fa-tag"></i> <a href="{{ path('articles_by_tag', {slug: tag.slug}) }}">{{ tag.title }}</a>
+            </span>
+        {% endfor %}
+    </p>
+{% endif %}

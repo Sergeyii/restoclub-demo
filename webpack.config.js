@@ -11,6 +11,8 @@ Encore
     // .enableVersioning(Encore.isProduction())
 
     // uncomment to define the assets of the project
+    .addEntry('js/admin', './assets/js/admin.js')
+    .addStyleEntry('css/admin', ['./assets/scss/admin.scss'])
     // .addEntry('js/app', './assets/js/app.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
 
@@ -18,7 +20,7 @@ Encore
     // .enableSassLoader()
 
     // uncomment for legacy applications that require $/jQuery as a global variable
-    // .autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();

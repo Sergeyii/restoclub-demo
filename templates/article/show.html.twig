@@ -16,9 +16,7 @@
 
         <div class="article-row">
             <div>{{ article.description }}</div><br/>
-            <div>
-                <span class="articles-tags">Теги</span>: TODO::
-            </div>
+            {{ include('article/articles_tags.html.twig') }}
         </div>
     </div>
 </div>
