@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleAuthorRepository")
  */
 class ArticleAuthor
 {
@@ -26,7 +26,7 @@ class ArticleAuthor
 
     /**
      * One Cart has One Customer.
-     * @ORM\OneToOne(targetEntity="Article", inversedBy="ArticleAuthor",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Article", inversedBy="author", cascade={"persist"})
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
     private $article;

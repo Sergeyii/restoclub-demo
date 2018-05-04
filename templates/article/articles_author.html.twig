@@ -1,0 +1,15 @@
+{% if article.author is not empty %}
+    <p class="post-author">
+        <span class="articles-author">Автор:</span><br>
+        <span class="label label-default">
+            <i class="fa fa-author"></i> <a href="{{ path('articles_by_author', {id: article.author.id}) }}">{{ article.author.fio }}</a>
+        </span>
+        {% if article.author.siteUrl is not empty %}
+            <br>
+            <span class="articles-author">Сайт автора:</span><br>
+            <span class="label label-default">
+                <i class="fa fa-author"></i> <a href="{{ article.author.siteUrl }}">{{ article.author.siteUrl }}</a>
+            </span>
+        {% endif %}
+    </p>
+{% endif %}

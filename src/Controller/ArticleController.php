@@ -16,7 +16,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/articles", name="articles")
+     * @Route("/", name="articles")
      */
     public function index()
     {
@@ -51,7 +51,7 @@ class ArticleController extends Controller
     public function showByAuthor($id)
     {
         return $this->render('article/index.html.twig', [
-            'articles' => $this->repository->findByAuthorSlug($id),
+            'articles' => $this->repository->findByAuthor($id),
         ]);
     }
 }

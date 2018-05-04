@@ -18,38 +18,35 @@ class ArticleService
 
     public function add(Article $article)
     {
-        $article->setSlug(Slugger::slugify($article->getTitle()));
+        $author = $article->getAuthor();
 
-        //--
-//        $author = $article->getAuthor();
-//        $article->setAuthor($author);
-////        $author->setArticle($article);
-//        $this->em->persist($author);
-        //--
+        //--Сохраняем article
+        $article->setSlug(Slugger::slugify($article->getTitle()));
 
         $now = new \DateTime();
         $article->setCreatedAt($now);
         $article->setUpdatedAt($now);
 
         $this->em->persist($article);
+        //--
+
+        //--Сохраняем author
+        $author->setArticle($article);
+        $this->em->persist($author);
+        //--
+
         $this->em->flush();
     }
 
     public function edit(Article $article)
     {
+        //--Сохраняем article
         $article->setSlug(Slugger::slugify($article->getTitle()));
-
-        //--
-        $author = $article->getAuthor();
-        $author->setArticle($article);
-        $this->em->persist($author);
-        $article->setAuthor($author);
-        //--
-
         $now = new \DateTime();
         $article->setUpdatedAt($now);
-
         $this->em->persist($article);
+        //--
+
         $this->em->flush();
     }
 }

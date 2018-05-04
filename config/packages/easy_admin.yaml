@@ -6,3 +6,5 @@ easy_admin:
         Tag:
             class: App\Entity\Tag
             controller: App\Controller\Admin\TagController
+        #ArticleAuthor:
+            #class: App\Entity\ArticleAuthor

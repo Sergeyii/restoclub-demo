@@ -43,8 +43,8 @@ class Article
     private $tags;
 
     /**
-     * One Customer has One Cart.
-     * @ORM\OneToOne(targetEntity="ArticleAuthor", mappedBy="article",cascade={"persist"})
+     * One Article has One ArticleAuthor.
+     * @ORM\OneToOne(targetEntity="ArticleAuthor", mappedBy="article", cascade={"persist"})
      */
     private $author;
 
